@@ -1,0 +1,45 @@
+
+ - app should display home page
+ - app should display new event page
+ - app should display event page
+ - user should be able to create event
+ - owner shoudl be able to delete posts
+ 
+
+Data objects
+ - hold data, can be saved, retrieved from the DB (schema?)
+ - accessed through BH class objects
+  - could be accessed alone but standards prevent this
+ - member of BH class objects?
+behavior classes
+
+create person object
+create event object
+move singleton connection to main app
+create new event
+validate form data client side and server side
+fix header
+
+gathering
+ - setup following of twitter #tags and @users
+ - setup news feed search?
+
+figure out how to test HTTP interaction without running the server
+
+
+can you overload or override operators in JS?
+custom operators in js
+does jade handle HTML5 compatability?
+
+-----------------------------
+
+secure server
+1) try denyhosts
+2) move SSH to another port (less than 1024)
+3) write script to run locally before SSH connect that
+	- checks outgoing ip
+	- makes API call to AWS to open SSH port to current ip address and block other ports for SSH
+4) write local script and use pull or pole method to update app from private package
+	- script should send email from each server when done
+	- if this method then build in some public/private key method for verifying downloaded software is safe
+find blogs on securing the internal firewall 
