@@ -5,6 +5,29 @@
  - user should be able to create event
  - owner shoudl be able to delete posts
  
+api
+	user
+		get user
+		create user
+		update user
+		login user
+		logout user
+		check user token
+		get user groups
+		get user contacts
+	group
+		create group
+		get group
+		get group members
+		get group comments
+		update group
+		add member
+		add comment
+		flag comment
+		upvote comment
+			check upvote daily limit
+		
+
 
 Data objects
  - hold data, can be saved, retrieved from the DB (schema?)

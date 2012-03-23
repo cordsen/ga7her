@@ -1,0 +1,21 @@
+// user.js
+"use strict";
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
+	mongooseTypes = require("mongoose-types"),
+	myTypes = require('./my-types');
+mongooseTypes.loadTypes(mongoose);
+
+//var notEmptyString = {type: String, required: true, validate: function (s) {return s.length >= 1; }};
+
+var UserSchema = new Schema({
+    first : myTypes.notEmptyString,
+	last  : myTypes.notEmptyString,
+    email : {type: mongoose.SchemaTypes.Email, unique: true}
+});
+
+
+var User = mongoose.model('User', UserSchema);
+
+module.exports.User = User;
+
