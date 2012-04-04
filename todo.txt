@@ -5,8 +5,32 @@
  - user should be able to create event
  - owner shoudl be able to delete posts
  
+flow
+	home
+		if logged in show user
+		create group
+		login
+	create group
+		name, type
+			date, location
+		invite people
+			email
+			fb
+			twitter
+			google
+			phone
+		login if not logged in from pervious screen
+	user page
+		about me
+		my groups
+			conversation snips
+		create group
+	group page
+		about group
+		conversation
+
 api
-	user
+	user - mostly taken care of by mongoose auth
 		get user
 		create user
 		update user

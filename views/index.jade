@@ -1,22 +1,16 @@
 doctype 5
 HTML
-	head
-		script(src='http://code.jquery.com/jquery-1.6.1.min.js')
-		| <link href='http://fonts.googleapis.com/css?family=Spicy+Rice|Concert+One|Chewy|Lemon|Luckiest+Guy|Handlee' rel='stylesheet' type='text/css'/>
-		style
-			#SpicyRice { font-family: 'Spicy Rice', cursive; font-size: 30px; }
-			#ConcertOne { font-family: 'Concert One', cursive; font-size: 30px; }
-			#Chewy { font-family: 'Chewy', cursive; font-size: 30px; }
-			#Lemon { font-family: 'Lemon', cursive; font-size: 30px; }
-			#LuckiestGuy { font-family: 'Luckiest Guy', cursive; font-size: 30px; }
-			#Handlee { font-family: 'Handlee', cursive; font-size: 30px; }
-	BODY
-		#hello
-			p Hello World!
-		#logos
-			#SpicyRice mobvite
-			#ConcertOne mobvite
-			#Chewy mobvite
-			#Lemon mobvite
-			#LuckiestGuy mobvite
-			#Handlee mobvite
+    head
+        script(src='http://code.jquery.com/jquery-1.6.1.min.js')
+        | <link href='http://fonts.googleapis.com/css?family=Spicy+Rice|Concert+One|Chewy|Lemon|Luckiest+Guy|Handlee' rel='stylesheet' type='text/css'/>
+        style
+    BODY
+        - if (!everyauth.loggedIn)
+          h2 Not Authenticated
+          #register
+            a(href='/register') Register
+          #password-login
+            a(href='/login', style='border: 0px') Login with Password
+            #fb-login(style='float: left; margin-left: 5px')
+                a(href='/auth/facebook', style='border: 0px')
+                    img(style='border: 0px', src='http://github.com/intridea/authbuttons/raw/master/png/facebook_64.png')

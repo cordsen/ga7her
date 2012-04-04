@@ -8,7 +8,8 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	Gathering = require('./lib/gathering').Gathering,
 	User = require('./lib/user').User,
-	mongooseAuth = require('mongoose-auth');
+	mongooseAuth = require('mongoose-auth'),
+	RedisStore = require('connect-redis')(express);
 
 /**
  * Inits
@@ -26,7 +27,8 @@ var app = express.createServer(
 	express.bodyParser(),
 	express.static(__dirname + '/public'),
 	express.cookieParser(),
-	express.session({ secret: 'esoognom'}),
+	express.session({ secret: 'esoognom', store: new RedisStore}),
+	//express.cookieSession()
 	mongooseAuth.middleware()
 );
 
@@ -45,7 +47,14 @@ app.configure(function () {
  */
 
 app.get('/', function (req, res) {
-	res.render('index', { layout: false });
+	console.log(req.loggedIn);
+	console.log("session:"+req.session.store);
+	console.log("session:"+req.session.memoryStore);
+
+	if (req.loggedIn)
+		res.redirect('/user');
+	else
+		res.render('index', { layout: false });
 });
 
 app.get('/event', function (req, res) {
@@ -86,8 +95,11 @@ app.get('/eventbs/:id', function (req, res) {
 	res.render('eventbs', { title: 'alpha launch' });
 });
 
-app.get('/person', function (req, res) {
-	res.render('person', {	});
+
+app.get('/user', function (req, res) {
+	res.render('user');
+	console.log(req.user);
+	//console.log(everauth);
 });
 
 mongooseAuth.helpExpress(app);
