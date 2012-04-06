@@ -6,7 +6,7 @@
 
 var express = require('express'),
 	mongoose = require('mongoose'),
-	Gathering = require('./lib/gathering').Gathering,
+	Group = require('./lib/group').Gathering,
 	User = require('./lib/user').User,
 	mongooseAuth = require('mongoose-auth'),
 	RedisStore = require('connect-redis')(express);
@@ -57,36 +57,36 @@ app.get('/', function (req, res) {
 		res.render('index', { layout: false });
 });
 
-app.get('/event', function (req, res) {
-	console.log('get event: ' + req);
-	res.render('newEvent', { title: 'Create an Event' });
+app.get('/group', function (req, res) {
+	console.log('get group: ' + req);
+	res.render('newGroup', { title: 'Create an Group' });
 });
-app.post('/event', function (req, res) {
+app.post('/group', function (req, res) {
 	// check post data
-	console.log('post event: ' + req.body.name);
+	console.log('post group: ' + req.body.name);
 	// create gathering
-	var g = new Gathering(req.body);//{name: req.body.name, date: req.body.date}
+	var group = new Group(req.body);//{name: req.body.name, date: req.body.date}
 
-	console.log('id: ' + g._id);
+	console.log('id: ' + group._id);
 	// redirect to event/:id
-	g.save(function (err) {
+	group.save(function (err) {
 		if (!err) {
 			console.log('Success!');
-			console.log('id: ' + g._id);
-			res.send({success: true, redirect: '/event/' + g._id});
+			console.log('id: ' + group._id);
+			res.send({success: true, redirect: '/event/' + group._id});
 		}
 	});
 });
 
 // save for event with id
-app.get('/event/:id', function (req, res) {
+app.get('/group/:id', function (req, res) {
 	//var g = new Gathering();
-	Gathering.findById(req.params.id, function (e, g) {
-		if (!e) {
-			console.log('found ' + g._id);
-			res.render('event', g);
+	Group.findById(req.params.id, function (err, group) {
+		if (!err) {
+			console.log('found ' + group._id);
+			res.render('group', group);
 		} else {
-			console.log('error ' + e);
+			console.log('error ' + err);
 		}
 	});
 });
