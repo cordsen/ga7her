@@ -4,7 +4,7 @@ block content
 	.span9
 		FORM.form-horizontal
 			FIELDSET
-				LEGEND Create a new Event
+				LEGEND Create a new Group
 				.control-group
 					LABEL.control-label(for="name") Your Name
 					.controls
@@ -28,23 +28,23 @@ block scripts
 	script(src="/js/jquery-1.7.1.min.js")
 	script
 		// capture button click
-		$('#createEvent').click(function(){
+		$('#createGroup').click(function(){
 			createEvent();
 			return false;
 		});
 		
 		// submit form 
-		function createEvent() {
+		function createGroup() {
 			var formData = {name: $('#name').val(), date: $('#date').val(), place: $('#place').val(), email: $('#email').val()};
 			$.post(
 				'/event'
 				,formData
-				,createGatheringCallback
+				,newGroupCallback
 				,'json');
 			}
-		function createGatheringCallback(data, status) {
+		function newGroupCallback(data, status) {
 			if (data.success === true)
 				window.location.href = data.redirect;
 			}
-		// redirect to event page
+		// redirect to group page
 

@@ -2,7 +2,7 @@ doctype 5
 HTML
 	HEAD
 		| <meta charset="utf-8"/>
-		title event for #{name}
+		title Group :  #{name}
 
 		link(href="/bootstrap/css/bootstrap.css", rel="stylesheet")
 		style
@@ -21,7 +21,7 @@ HTML
 				#login 
 					p register or login and navigation
 		.container
-			#event.span3
+			#group.span3
 				#name #{name}
 				#date #{date}
 				#venue #{place}
