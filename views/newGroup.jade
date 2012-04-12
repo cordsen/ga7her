@@ -1,50 +1,51 @@
 extends layout
 
 block content
-	.span9
-		FORM.form-horizontal
-			FIELDSET
-				LEGEND Create a new Group
-				.control-group
-					LABEL.control-label(for="name") Your Name
-					.controls
-						INPUT(type="text").input-xlarge#name
-						P.help-block Who is sending this invite
-					LABEL.control-label(for="date") Date + Time
-					.controls
-						INPUT(type="text").input-xlarge#date
-						P.help-block When is it
-					LABEL.control-label(for="place") Place
-					.controls
-						INPUT(type="text").input-xlarge#place
-						P.help-block Where is it
-					LABEL.control-label(for="email") Your Email
-					.controls
-						INPUT(type="text").input-xlarge#email
-						P.help-block We need this to verify you'e a human before we send it
-						BUTTON#createEvent.btn-primary Create Event
+    .span9
+        FORM.form-horizontal#newGroup
+            FIELDSET
+                LEGEND Create a group and invite people using facebook, twitter, or email
+                .control-group
+                    LABEL.control-label(for="name") Your Name
+                    .controls
+                        INPUT(type="text", name="name").input-xlarge#name
+                        P.help-block Who is sending this invite
+                    LABEL.control-label(for="email") Your Email
+                    .controls
+                        INPUT(type="text", name="email").input-xlarge#email
+                        P.help-block We need this to verify you'e a human before we send it
+                        BUTTON#createGroup.btn-primary Create Event
+        #fb-login(style='float: left; margin-left: 5px')
+            a(href='/auth/facebook', style='border: 0px')
+                img(style='border: 0px', src='http://github.com/intridea/authbuttons/raw/master/png/facebook_64.png')
 
 block scripts
-	script(src="/js/jquery-1.7.1.min.js")
-	script
-		// capture button click
-		$('#createGroup').click(function(){
-			createEvent();
-			return false;
-		});
-		
-		// submit form 
-		function createGroup() {
-			var formData = {name: $('#name').val(), date: $('#date').val(), place: $('#place').val(), email: $('#email').val()};
-			$.post(
-				'/event'
-				,formData
-				,newGroupCallback
-				,'json');
-			}
-		function newGroupCallback(data, status) {
-			if (data.success === true)
-				window.location.href = data.redirect;
-			}
-		// redirect to group page
+    script(src='/js/zepto.min.js')
+    script(src='/js/underscore-min.js')
+    script(src='/js/backbone-min.js')
+    script
+        // capture button click
+        $('#createGroup').click(function(){
+            createGroup();
+            return false;
+        });
+        
+        // submit form 
+        function createGroup() {
+            var formData = $('#newGroup').serialize();
+            //{name: $('#name').val(), date: $('#date').val(), place: $('#place').val(), email: $('#email').val()};
+            $.post(
+                '/group'
+                ,formData
+                ,newGroupCallback
+                ,'json');
+        }
+        function newGroupCallback(data, status) {
+            alert(data + " "  + status);
+        }
+            // if (data.success === true)
+            //      window.location.href = data.redirect;
+        // redirect to group page
+
+        var group = Backbone.Model.extend({})
 

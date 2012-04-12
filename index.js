@@ -6,10 +6,12 @@
 
 var express = require('express'),
 	mongoose = require('mongoose'),
-	Group = require('./lib/group').Gathering,
+	Group = require('./lib/group').Group,
 	User = require('./lib/user').User,
 	mongooseAuth = require('mongoose-auth'),
-	RedisStore = require('connect-redis')(express);
+	RedisStore = require('connect-redis')(express),
+	Step = require('step'),
+	sender = require('./lib/mail');
 
 /**
  * Inits
@@ -64,18 +66,60 @@ app.get('/group', function (req, res) {
 app.post('/group', function (req, res) {
 	// check post data
 	console.log('post group: ' + req.body.name);
-	// create gathering
-	var group = new Group(req.body);//{name: req.body.name, date: req.body.date}
+	
+	var user
+	, group
+	, email = req.body.email;
+	Step(
+		function getUser () {
+			User.findOne({email: email}, this)
+		},
+		function checkUser (err, result) {
+			if (err) {
+				throw err;
+			}
+			if (result) {
+				user = result;
+				return user;
+			}
+			user = new User({email: email});
+			user.save(this);
+		},
+		function createGroup (err, user) {
+			debugger;
+			if (err) {
+				throw err
+			}
+			// create group
+			group = new Group(
+			{
+				name: req.body.name
+				, owner: user._id
+				, meta: {
+					date: req.body.date
+					, place: req.body.place
+				}
+			});//{name: req.body.name, date: req.body.date}
 
-	console.log('id: ' + group._id);
-	// redirect to event/:id
-	group.save(function (err) {
-		if (!err) {
-			console.log('Success!');
 			console.log('id: ' + group._id);
-			res.send({success: true, redirect: '/event/' + group._id});
+			// redirect to event/:id
+			group.save(this)
+		},
+		function sendEmail (err) {
+			sender.smtpTransport.sendMail(new sender.groupInvite(user.email, group._id)); // skip the callbacks for now
+			return;
+		},
+		function sendResponse (err) {
+			if (err) {
+				console.log('sending err: ' + err);
+				res.send({success: false, message: err});
+			} else {
+				console.log('Success!');
+				console.log('id: ' + group._id);
+				res.send({success: true, redirect: '/group/' + group._id});
+			}
 		}
-	});
+	);
 });
 
 // save for event with id

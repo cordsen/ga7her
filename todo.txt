@@ -1,3 +1,13 @@
+SERVEVR SETUP
+ - write main cluster app that runs index.js forks or spawns
+ - test this for fault tollerence
+ - find way to monitor/recycle this main process
+ - how to recycle index.js processes
+ - test the cluster by starting as a spawn and injecting in various scripts
+   that crash hard
+ - how can I see what the cluster app is doing (does it emit messages or can I
+   attach to it and inspect it)
+
 
  - app should display home page
  - app should display new event page

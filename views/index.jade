@@ -1,15 +1,27 @@
 doctype 5
 HTML
     head
+        | <meta charset="utf-8"/>
+        title GA7HER
+
+        link(href="/bootstrap/css/bootstrap.css", rel="stylesheet")
+        style
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        link(href="/bootstrap/css/bootstrap-responsive.css", rel="stylesheet")
+
+        //link(href='/main.css', rel='stylesheet')
+        | <meta name="viewport" content="width=device-width, initial-scale=1"/>
         script(src='http://code.jquery.com/jquery-1.6.1.min.js')
         | <link href='http://fonts.googleapis.com/css?family=Spicy+Rice|Concert+One|Chewy|Lemon|Luckiest+Guy|Handlee' rel='stylesheet' type='text/css'/>
         style
     BODY
         - if (!everyauth.loggedIn)
-          h2 Not Authenticated
-          #register
+            h2 Not Authenticated
+        #register
             a(href='/register') Register
-          #password-login
+        #password-login
             a(href='/login', style='border: 0px') Login with Password
             #fb-login(style='float: left; margin-left: 5px')
                 a(href='/auth/facebook', style='border: 0px')
