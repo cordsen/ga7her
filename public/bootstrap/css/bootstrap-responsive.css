@@ -21,7 +21,8 @@
   display: none;
   visibility: hidden;
 }
-@media (max-width: 480px) {
+@media (max-width: 480px),
+			 (-webkit-min-device-pixes-ratio: 2) {
   .nav-collapse {
     -webkit-transform: translate3d(0, 0, 0);
   }
