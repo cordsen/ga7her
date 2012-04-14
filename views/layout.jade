@@ -16,11 +16,14 @@ HTML
     BODY
         block navbar
         HEADER.navbar.navbar-fixed-top
-            #logo 
-                p mobvite
-            #login 
-                p login
-        .container
+          .navbar-inner
+            .container
+              a.brand(src="/") Ga7her
+              .nav-collapse
+                ul.nav.pull-right
+                  li
+                    a(src="/login") login
+        #masthead.container
             block content
                 p no content yet
         block scripts
