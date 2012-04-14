@@ -1,3 +1,13 @@
+SERVEVR SETUP
+ - write main cluster app that runs index.js forks or spawns
+ - test this for fault tollerence
+ - find way to monitor/recycle this main process
+ - how to recycle index.js processes
+ - test the cluster by starting as a spawn and injecting in various scripts
+   that crash hard
+ - how can I see what the cluster app is doing (does it emit messages or can I
+   attach to it and inspect it)
+
 
  - app should display home page
  - app should display new event page
@@ -5,6 +15,53 @@
  - user should be able to create event
  - owner shoudl be able to delete posts
  
+flow
+	home
+		if logged in show user
+		create group
+		login
+	create group
+		name, type
+			date, location
+		invite people
+			email
+			fb
+			twitter
+			google
+			phone
+		login if not logged in from pervious screen
+	user page
+		about me
+		my groups
+			conversation snips
+		create group
+	group page
+		about group
+		conversation
+
+api
+	user - mostly taken care of by mongoose auth
+		get user
+		create user
+		update user
+		login user
+		logout user
+		check user token
+		get user groups
+		get user contacts
+	group
+		create group
+		get group
+		get group members
+		get group comments
+		update group
+		add member
+		add comment
+		flag comment
+		upvote comment
+			check upvote daily limit
+		
+
 
 Data objects
  - hold data, can be saved, retrieved from the DB (schema?)

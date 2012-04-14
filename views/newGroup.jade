@@ -1,0 +1,66 @@
+extends layout
+
+block content
+    .row
+        .span8.offset2
+            h3 Create a group and invite people from faceboo, twitter, or through email
+            #fb-login(style='float: left; margin-left: 5px')
+                a(href='/auth/facebook', style='border: 0px')
+                    img(style='border: 0px', src='http://github.com/intridea/authbuttons/raw/master/png/facebook_64.png')
+            #twitter-login(style='float: left; margin-left: 5px')
+                a(href='/auth/twitter', style='border: 0px')
+                    img(style='border: 0px',
+                    src='http://github.com/intridea/authbuttons/raw/master/png/twitter_64.png')
+            #email-login(style='float: left; margin-left: 5px')
+                img(style='border: 0px',
+                    src='http://github.com/intridea/authbuttons/raw/master/png/google_64.png')
+        #loginForm.row            
+            FORM.span6.offset3.form-horizontal#newGroup
+                FIELDSET
+                  LEGEND Put in your email address and we'll send you an invite 
+                    .control-group
+                        LABEL.control-label(for="name") Your Name
+                        .controls
+                            INPUT(type="text", name="name").input-xlarge#name
+                            P.help-block Who is sending this invite
+                        LABEL.control-label(for="email") Your Email
+                        .controls
+                            INPUT(type="text", name="email").input-xlarge#email
+                            P.help-block We need this to verify you'e a human before we send it
+                            BUTTON#createGroup.btn-primary Create Event
+
+block scripts
+    script(src='/js/zepto.min.js')
+    script(src='/js/underscore-min.js')
+    script(src='/js/backbone-min.js')
+    script
+        // show email form
+        $('#email-login').on('click', function(e) {
+            $('#loginForm').css('visibility', 'visible');
+        });
+        
+        // capture button click
+        $('#createGroup').click(function(){
+            createGroup();
+            return false;
+        });
+        
+        // submit form 
+        function createGroup() {
+            var formData = $('#newGroup').serialize();
+            //{name: $('#name').val(), date: $('#date').val(), place: $('#place').val(), email: $('#email').val()};
+            $.post(
+                '/group'
+                ,formData
+                ,newGroupCallback
+                ,'json');
+        }
+        function newGroupCallback(data, status) {
+            alert(data + " "  + status);
+        }
+            // if (data.success === true)
+            //      window.location.href = data.redirect;
+        // redirect to group page
+
+        var group = Backbone.Model.extend({})
+

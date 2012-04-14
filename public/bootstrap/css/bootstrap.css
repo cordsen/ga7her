@@ -29,7 +29,7 @@ audio:not([controls]) {
 }
 html {
   font-size: 100%;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: none;
   -ms-text-size-adjust: 100%;
 }
 a:focus {
